@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "drv_usb_hw.h": "c",
+        "iddetection.h": "c",
+        "hal.h": "c",
+        "tmc2240.h": "c"
+    }
+}

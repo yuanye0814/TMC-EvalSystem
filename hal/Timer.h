@@ -5,7 +5,7 @@
 
 #if defined(Landungsbruecke) || defined(LandungsbrueckeSmall)
 #define TIMER_MAX 8000
-#elif defined(LandungsbrueckeV3)
+#elif defined(LandungsbrueckeV3) || defined(LandungsbrueckeGD32F303VGT6)
 #define TIMER_MAX 65535
 #endif
 

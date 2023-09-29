@@ -176,14 +176,14 @@ static uint32_t handleParameter(uint8_t readWrite, uint8_t motor, uint8_t type, 
 		if (readWrite == READ) {
 			#if defined(Landungsbruecke) || defined(LandungsbrueckeSmall)
 			*value = (uint32_t) ((1.0 - Timer.getDuty(TIMER_CHANNEL_3)) * 100);
-			#elif defined(LandungsbrueckeV3)
+			#elif defined(LandungsbrueckeV3) || defined(LandungsbrueckeGD32F303VGT6)
 			*value = (uint32_t) ((1.0 - Timer.getDuty(TIMER_CHANNEL_4)) * 100);
 			#endif
 		} else {
 			if ((uint32_t) *value <= 100) {
 				#if defined(Landungsbruecke) || defined(LandungsbrueckeSmall)
 				Timer.setDuty(TIMER_CHANNEL_3, 1.0 - ((float)(*value) / 100));
-				#elif defined(LandungsbrueckeV3)
+				#elif defined(LandungsbrueckeV3) || defined(LandungsbrueckeGD32F303VGT6)
 				Timer.setDuty(TIMER_CHANNEL_4, 1.0 - ((float)(*value) / 100));
 				#endif
 			} else {

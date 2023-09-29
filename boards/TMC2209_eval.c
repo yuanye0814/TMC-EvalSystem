@@ -698,7 +698,7 @@ void TMC2209_init(void)
 #if defined(Landungsbruecke) || defined(LandungsbrueckeSmall)
 	timerChannel = TIMER_CHANNEL_3;
 
-#elif defined(LandungsbrueckeV3)
+#elif defined(LandungsbrueckeV3) || defined(LandungsbrueckeGD32F303VGT6)
 	timerChannel = TIMER_CHANNEL_4;
 #endif
 	tmc_fillCRC8Table(0x07, true, 1);

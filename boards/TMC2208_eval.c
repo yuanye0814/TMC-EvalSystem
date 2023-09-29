@@ -324,7 +324,7 @@ void TMC2208_init(void)
 #if defined(Landungsbruecke) || defined(LandungsbrueckeSmall)
 	timerChannel = TIMER_CHANNEL_3;
 
-#elif defined(LandungsbrueckeV3)
+#elif defined(LandungsbrueckeV3) || defined(LandungsbrueckeGD32F303VGT6)
 	timerChannel = TIMER_CHANNEL_4;
 #endif
 	tmc_fillCRC8Table(0x07, true, 1);
@@ -387,7 +387,7 @@ void TMC2208_init(void)
 
 #if defined(Landungsbruecke) || defined(LandungsbrueckeSmall)
 	Pins.UC_PWM->configuration.GPIO_Mode = GPIO_Mode_AF4;
-#elif defined(LandungsbrueckeV3)
+#elif defined(LandungsbrueckeV3) 
 	Pins.UC_PWM->configuration.GPIO_Mode  = GPIO_MODE_AF;
 	gpio_af_set(Pins.UC_PWM->port, GPIO_AF_1, Pins.UC_PWM->bitWeight);
 #endif

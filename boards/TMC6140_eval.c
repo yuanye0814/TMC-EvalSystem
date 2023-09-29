@@ -482,7 +482,7 @@ static void periodicJob(uint32_t tick)
 	}
 }
 
-#if defined(LandungsbrueckeV3)
+#if defined(LandungsbrueckeV3) || defined(LandungsbrueckeGD32F303VGT6)
 void PD8_IRQHandler(void)
 {
 	static uint32_t bitTime = 0;
@@ -844,6 +844,8 @@ void TMC6140_init(void)
 	exti_init(EXTI_8, EXTI_INTERRUPT, EXTI_TRIG_BOTH);
 	exti_interrupt_flag_clear(EXTI_8);
 	nvic_irq_enable(EXTI5_9_IRQn, 0, 1);
+#elif defined(LandungsbrueckeGD32F303VGT6)
+//TODO
 #else
 	// Enable GPIO, edge-triggered interrupt, and PullUp resistor
 	PORT_PCR_REG(Pins.DIAG->portBase, Pins.DIAG->bit)  = PORT_PCR_MUX(1) | PORT_PCR_IRQC(0x0B) | PORT_PCR_PE_MASK | PORT_PCR_PS_MASK;

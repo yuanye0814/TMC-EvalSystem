@@ -18,7 +18,7 @@
 #if defined(Landungsbruecke) || defined(LandungsbrueckeSmall)
 #define MAX22204_VREF_TIMER TIMER_CHANNEL_3
 #define MAX22204_RAMDEBUG_TIMER TIMER_CHANNEL_1
-#elif defined(LandungsbrueckeV3)
+#elif defined(LandungsbrueckeV3) || defined(LandungsbrueckeGD32F303VGT6)
 #define MAX22204_VREF_TIMER	TIMER_CHANNEL_4
 #define MAX22204_RAMDEBUG_TIMER TIMER_CHANNEL_2
 #endif

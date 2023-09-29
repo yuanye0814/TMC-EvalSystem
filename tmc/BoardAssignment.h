@@ -120,7 +120,7 @@ extern void TMC8462_init_ch1();
 extern void TMC8462_init_ch2();
 extern void SelfTest_init();
 
-#if defined(LandungsbrueckeV3)
+#if defined(LandungsbrueckeV3) || defined(LandungsbrueckeGD32F303VGT6)
 	extern void PD8_IRQHandler();
 #endif
 

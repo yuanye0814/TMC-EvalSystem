@@ -231,7 +231,7 @@ uint32_t resetRequest = 0;
     };
 
     extern struct BootloaderConfig BLConfig;
-#elif defined(LandungsbrueckeV3)
+#elif defined(LandungsbrueckeV3) || defined(LandungsbrueckeGD32F303VGT6)
     // ToDo: Remove the duplicate declaration of the struct here and in main.c
     struct BootloaderConfig {
         uint32_t BLMagic;
@@ -604,7 +604,7 @@ void tmcl_boot()
 
 	HAL.NVIC_DeInit();
 
-#if defined(Landungsbruecke) || defined(LandungsbrueckeSmall) || defined(LandungsbrueckeV3)
+#if defined(Landungsbruecke) || defined(LandungsbrueckeSmall) || defined(LandungsbrueckeV3) || defined(LandungsbrueckeGD32F303VGT6)
 	BLConfig.BLMagic = 0x12345678;
 	HAL.reset(true);
 #endif

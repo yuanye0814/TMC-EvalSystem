@@ -33,7 +33,7 @@ EvalboardsTypeDef Evalboards;
 
 	// This struct gets placed at a specific address by the linker
 	struct BootloaderConfig __attribute__ ((section(".bldata"))) BLConfig;
-#elif defined(LandungsbrueckeV3)
+#elif defined(LandungsbrueckeV3) || defined(LandungsbrueckeGD32F303VGT6)
     struct BootloaderConfig {
         uint32_t BLMagic;
     };
@@ -136,10 +136,33 @@ int main(void)
 {
 	// Start all initialization routines
 	init();
+#if 0
+	nvic_priority_group_set(NVIC_PRIGROUP_PRE4_SUB0);
+	__enable_irq();
 
+	systick_init();
+
+	rcu_periph_clock_enable(RCU_GPIOB);
+	rcu_periph_clock_enable(RCU_GPIOD);
+
+	gpio_init(GPIOD, GPIO_MODE_OUT_PP, GPIO_OSPEED_50MHZ, GPIO_PIN_3);
+	gpio_init(GPIOB, GPIO_MODE_OUT_PP, GPIO_OSPEED_50MHZ, GPIO_PIN_0);
+
+	HAL.LEDs->stat.on();
+	HAL.LEDs->error.on();
+
+	wait(500);
+	#endif
 	// Main loop
 	while(1)
 	{
+		#if 0
+		HAL.LEDs->stat.toggle();
+		HAL.LEDs->error.toggle();
+		wait(500);
+		#endif
+
+		#if 1
 		// Check all parameters and life signs and mark errors
 		vitalsignsmonitor_checkVitalSigns();
 
@@ -152,6 +175,7 @@ int main(void)
 
 		// Process TMCL communication
 		tmcl_process();
+		#endif
 	}
 
 	return 0;

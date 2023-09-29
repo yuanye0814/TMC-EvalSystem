@@ -854,7 +854,7 @@ void TMC2160_init(void)
 	Pins.DRV_ENN = &HAL.IOs->pins->DIO0;
 	Pins.REFL_STEP = &HAL.IOs->pins->DIO6;
 	Pins.REFR_DIR = &HAL.IOs->pins->DIO7;
-#if defined(LandungsbrueckeV3)
+#if defined(LandungsbrueckeV3) || defined(LandungsbrueckeGD32F303VGT6)
 	Pins.SPI_MODE = &HAL.IOs->pins->DIO11_PWM_WH;
 #else
 	Pins.SPI_MODE = &HAL.IOs->pins->DIO11;

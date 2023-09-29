@@ -17,6 +17,28 @@
 	#define LED_ERROR_ON()      *HAL.IOs->pins->LED_ERROR.resetBitRegister  = HAL.IOs->pins->LED_ERROR.bitWeight
 	#define LED_ERROR_OFF()     *HAL.IOs->pins->LED_ERROR.setBitRegister    = HAL.IOs->pins->LED_ERROR.bitWeight
 	#define LED_ERROR_TOGGLE()  GPIO_TG(HAL.IOs->pins->LED_ERROR.port)      = HAL.IOs->pins->LED_ERROR.bitWeight
+
+#elif defined(LandungsbrueckeGD32F303VGT6)
+	#define LED_ON()            *HAL.IOs->pins->LED_STAT.resetBitRegister   = HAL.IOs->pins->LED_STAT.bitWeight
+	#define LED_OFF()           *HAL.IOs->pins->LED_STAT.setBitRegister     = HAL.IOs->pins->LED_STAT.bitWeight
+	#define LED_TOGGLE()        																			\
+	{																										\
+		if((uint32_t)RESET != (GPIO_OCTL(HAL.IOs->pins->LED_STAT.port)&(HAL.IOs->pins->LED_STAT.bitWeight)))\
+			GPIO_BC(HAL.IOs->pins->LED_STAT.port) = HAL.IOs->pins->LED_STAT.bitWeight;						\
+		else 																								\
+			GPIO_BOP(HAL.IOs->pins->LED_STAT.port) = HAL.IOs->pins->LED_STAT.bitWeight;						\
+	}
+	
+
+	#define LED_ERROR_ON()      *HAL.IOs->pins->LED_ERROR.resetBitRegister  = HAL.IOs->pins->LED_ERROR.bitWeight
+	#define LED_ERROR_OFF()     *HAL.IOs->pins->LED_ERROR.setBitRegister    = HAL.IOs->pins->LED_ERROR.bitWeight
+	#define LED_ERROR_TOGGLE()        																			\
+	{																											\
+		if((uint32_t)RESET != (GPIO_OCTL(HAL.IOs->pins->LED_ERROR.port)&(HAL.IOs->pins->LED_ERROR.bitWeight)))	\
+			GPIO_BC(HAL.IOs->pins->LED_ERROR.port) = HAL.IOs->pins->LED_ERROR.bitWeight;							\
+		else 																									\
+			GPIO_BOP(HAL.IOs->pins->LED_ERROR.port) = HAL.IOs->pins->LED_ERROR.bitWeight;						\
+	}
 #endif
 
 	#include "IOs.h"

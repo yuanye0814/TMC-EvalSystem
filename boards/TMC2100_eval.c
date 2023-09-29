@@ -496,7 +496,7 @@ static uint32_t getStandAloneSettings(uint8_t i, int32_t *value)
 
 void TMC2100_init(void)
 {
-#if defined(LandungsbrueckeV3)
+#if defined(LandungsbrueckeV3) || defined(LandungsbrueckeGD32F303VGT6)
 	Pins.AIN_REF_PWM  = &HAL.IOs->pins->DIO11_PWM_WH;
 	Pins.AIN_REF_SW   = &HAL.IOs->pins->DIO10_PWM_WL;
 #else

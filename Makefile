@@ -56,7 +56,7 @@ SRC 			+= boards/TMC6200_eval.c
 SRC				+= boards/TMC7300_eval.c
 SRC				+= boards/TMC8461_eval.c
 SRC				+= boards/TMC8462_eval.c
-ifeq ($(DEVICE),$(filter $(DEVICE),Landungsbruecke LandungsbrueckeSmall LandungsbrueckeV3))
+ifeq ($(DEVICE),$(filter $(DEVICE),Landungsbruecke LandungsbrueckeSmall LandungsbrueckeV3 LandungsbrueckeGD32F303VGT6))
 SRC				+= boards/MAX22216_eval.c
 SRC				+= boards/MAX22204_eval.c
 SRC				+= boards/MAX22210_eval.c
@@ -83,7 +83,9 @@ endif
 ifeq ($(DEVICE),$(filter $(DEVICE),LandungsbrueckeV3))
 SRC             += tmc/BLDC_LandungsbrueckeV3.c
 endif
-
+ifeq ($(DEVICE),$(filter $(DEVICE),LandungsbrueckeGD32F303VGT6))
+SRC             += tmc/BLDC_LandungsbrueckeGD32F303VGT6.c
+endif
 # TMC_API
 SRC				+= TMC-API/tmc/helpers/Functions.c
 SRC				+= TMC-API/tmc/helpers/CRC.c
@@ -275,6 +277,73 @@ else ifeq ($(DEVICE),LandungsbrueckeV3)
 		LD_SCRIPT = $(STMLIBDIR)/gd32f425-tmcm.ld
 	else
 		LD_SCRIPT = $(STMLIBDIR)/gd32f425.ld
+	endif
+	LDFLAGS += -specs=nosys.specs
+else ifeq ($(DEVICE),LandungsbrueckeGD32F303VGT6)
+    CDEFS = -DLandungsbrueckeGD32F303VGT6
+    MCU      			= cortex-m4
+    SUBMDL   			= GD32F30X_XD
+    CHIP     			= $(SUBMDL)
+    BOARD    			= LandungsbrueckeV3
+    TMC_HAL_SRC         = hal/Landungsbruecke_GD32F303VGT6
+    STMLIBDIR 			= $(TMC_HAL_SRC)/GigaDevice
+    STMSPDDIR 			= $(STMLIBDIR)/lib
+    LIBSRCDIR 			= $(STMSPDDIR)/src
+    STMSPDINCDIR 		= $(STMSPDDIR)/inc
+    #CMSISDIR 			= $(STMLIBDIR)/CMSIS/Core/CM3
+    #STMEEEMULDIR 		= $(STMLIBDIR)/EEPROMEmulation_AN
+    #STMEEEMULSRCDIR 	= $(STMEEEMULDIR)/source
+    #STMEEEMULINCDIR 	= $(STMEEEMULDIR)/include
+    INCLUDE_DIRS 		= -I$(STMSPDINCDIR)
+
+    SRC                 += boards/SelfTest_LandungsbrueckeGD32F303VGT6.c
+#
+    SRC                 += tmc/IdDetection_LandungsbrueckeGD32F303VGT6.c
+
+
+	SRC += $(LIBSRCDIR)/system_gd32f30x.c
+	SRC += $(LIBSRCDIR)/gd32f30x_adc.c
+	SRC += $(LIBSRCDIR)/gd32f30x_can.c
+	SRC += $(LIBSRCDIR)/gd32f30x_crc.c
+	SRC += $(LIBSRCDIR)/gd32f30x_ctc.c
+	SRC += $(LIBSRCDIR)/gd32f30x_dac.c
+	SRC += $(LIBSRCDIR)/gd32f30x_dbg.c
+	SRC += $(LIBSRCDIR)/gd32f30x_dma.c
+	SRC += $(LIBSRCDIR)/gd32f30x_enet.c
+	SRC += $(LIBSRCDIR)/gd32f30x_exmc.c
+	SRC += $(LIBSRCDIR)/gd32f30x_exti.c
+	SRC += $(LIBSRCDIR)/gd32f30x_fmc.c
+	SRC += $(LIBSRCDIR)/gd32f30x_fwdgt.c
+	SRC += $(LIBSRCDIR)/gd32f30x_gpio.c
+	SRC += $(LIBSRCDIR)/gd32f30x_i2c.c
+	SRC += $(LIBSRCDIR)/gd32f30x_misc.c
+	SRC += $(LIBSRCDIR)/gd32f30x_pmu.c
+	SRC += $(LIBSRCDIR)/gd32f30x_rcu.c
+	SRC += $(LIBSRCDIR)/gd32f30x_rtc.c
+	SRC += $(LIBSRCDIR)/gd32f30x_sdio.c
+	SRC += $(LIBSRCDIR)/gd32f30x_spi.c
+	SRC += $(LIBSRCDIR)/gd32f30x_timer.c
+	SRC += $(LIBSRCDIR)/gd32f30x_usart.c
+	SRC += $(LIBSRCDIR)/gd32f30x_wwdgt.c
+	SRC += $(LIBSRCDIR)/usb/cdc_acm_core.c
+	SRC += $(LIBSRCDIR)/usb/gd32f30x_usbd_hw.c
+	SRC += $(LIBSRCDIR)/usb/usbd_core.c
+	SRC += $(LIBSRCDIR)/usb/usbd_enum.c
+	SRC += $(LIBSRCDIR)/usb/usbd_lld_core.c
+	SRC += $(LIBSRCDIR)/usb/usbd_lld_int.c
+	SRC += $(LIBSRCDIR)/usb/usbd_pwr.c
+	SRC += $(LIBSRCDIR)/usb/usbd_transc.c
+  	
+	ASRC +=  $(LIBSRCDIR)/startup_gd32f30x_xd.S
+   	EXTRAINCDIRS  		+= $(STMSPDINCDIR)
+   	EXTRAINCDIRS  		+= $(STMSPDINCDIR)/cmsis
+    EXTRAINCDIRS  		+= $(STMSPDINCDIR)/usb
+    EXTRAINCDIRS  		+= $(TMC_HAL_SRC)/tmc
+
+   	ifeq ($(LINK),BL)
+		LD_SCRIPT = $(STMLIBDIR)/GD32F303VGT6_FLASH_FW-tmcm.ld
+	else
+		LD_SCRIPT = $(STMLIBDIR)/GD32F303VGT6_FLASH_FW.ld
 	endif
 	LDFLAGS += -specs=nosys.specs
 else

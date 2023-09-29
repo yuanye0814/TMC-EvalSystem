@@ -120,7 +120,7 @@
 
 #if defined(Landungsbruecke) || defined(LandungsbrueckeSmall)
 	#define TIMER_INTERRUPT FTM1_IRQHandler
-#elif defined(LandungsbrueckeV3)
+#elif defined(LandungsbrueckeV3)  || defined(LandungsbrueckeGD32F303VGT6)
 	#define TIMER_INTERRUPT TIMER2_IRQHandler
 #endif
 
@@ -148,7 +148,7 @@ void TIMER_INTERRUPT()
 {
 #if defined(Landungsbruecke) || defined(LandungsbrueckeSmall)
 	FTM1_SC &= ~FTM_SC_TOF_MASK; // clear timer overflow flag
-#elif defined(LandungsbrueckeV3)
+#elif defined(LandungsbrueckeV3) || defined(LandungsbrueckeGD32F303VGT6)
 	if(timer_interrupt_flag_get(TIMER2, TIMER_INT_FLAG_UP) == RESET)
 		return;
 	timer_interrupt_flag_clear(TIMER2, TIMER_INT_FLAG_UP);
@@ -173,7 +173,7 @@ void TIMER_INTERRUPT()
 		//       and checkStallguard won't do anything.
 #if defined(Landungsbruecke) || defined(LandungsbrueckeSmall)
 		bool isStallSignalHigh = (GPIO_PDIR_REG(currCh->stallGuardPin->GPIOBase) & currCh->stallGuardPin->bitWeight) != 0;
-#elif defined(LandungsbrueckeV3)
+#elif defined(LandungsbrueckeV3) || defined(LandungsbrueckeGD32F303VGT6)
 		bool isStallSignalHigh = HAL.IOs->config->isHigh(currCh->stallGuardPin);
 #endif
 		checkStallguard(currCh, isStallSignalHigh);
@@ -616,7 +616,7 @@ void StepDir_init(uint32_t precision)
 
 		// set FTM1 interrupt handler
 		enable_irq(INT_FTM1-16);
-	#elif defined(LandungsbrueckeV3)
+	#elif defined(LandungsbrueckeV3) || defined(LandungsbrueckeGD32F303VGT6)
 		rcu_periph_clock_enable(RCU_TIMER2);
 		timer_deinit(TIMER2);
 

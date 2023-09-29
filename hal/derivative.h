@@ -7,7 +7,7 @@
  * The Build process already selects one via makefile & makeFor.h files,
  * this choice will therefore not influence the build process.
  */
-#if !defined(Landungsbruecke) && !defined(LandungsbrueckeV3) && !defined(LandungsbrueckeSmall)
+#if !defined(Landungsbruecke) && !defined(LandungsbrueckeV3) && !defined(LandungsbrueckeSmall) && ! defined(LandungsbrueckeGD32F303VGT6)
 #warning "No Board selected by makefile, defining one for debug purposes"
 #define Landungsbruecke
 //#define LandungsbrueckeV3
@@ -26,6 +26,10 @@
     #elif defined(LandungsbrueckeV3)
         #define MODULE_ID "0026"
 		#include "gd32f4xx.h"
+
+    #elif defined(LandungsbrueckeGD32F303VGT6)
+        #define MODULE_ID "0012"
+		#include "gd32f30x.h"
     #elif defined(LandungsbrueckeSmall)
         // The Landungsbruecke (Small) is a normal Landungsbruecke but with a MK20DX256VLL10 µC instead.
         // This other µC has less memory. We assign a different module ID, otherwise the functionality

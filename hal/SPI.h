@@ -8,7 +8,7 @@
 	{
 		#if defined(Landungsbruecke) || defined(LandungsbrueckeSmall)
 			SPI_MemMapPtr periphery; // pointer to freescale SPI memory base pointer
-		#elif defined(LandungsbrueckeV3)
+		#elif defined(LandungsbrueckeV3) || defined(LandungsbrueckeGD32F303VGT6)
 			uint32_t periphery; // GD32 SPI parameters
 		#endif
 

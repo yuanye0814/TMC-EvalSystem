@@ -10,7 +10,7 @@
 
 #if defined(Landungsbruecke) || defined(LandungsbrueckeSmall)
 #define VM_FACTOR               713  // ADC reaches limit at VM = 71.3V => VM Factor (in 100mV) = 713
-#elif defined(LandungsbrueckeV3)
+#elif defined(LandungsbrueckeV3) || defined(LandungsbrueckeGD32F303VGT6)
 #define VM_FACTOR               744
 #endif
 
@@ -35,7 +35,7 @@ VitalSignsMonitorTypeDef VitalSignsMonitor =
 
 #if defined(Landungsbruecke) || defined(LandungsbrueckeSmall)
 	#define ADC_VM_RES 65535
-#elif defined(LandungsbrueckeV3)
+#elif defined(LandungsbrueckeV3) || defined(LandungsbrueckeGD32F303VGT6)
 	#define ADC_VM_RES 4095
 #endif
 

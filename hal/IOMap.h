@@ -84,7 +84,7 @@ typedef struct
 	IOPinTypeDef EXTIO_7;
 #endif
 
-#if defined(LandungsbrueckeV3)
+#if defined(LandungsbrueckeV3) || defined(LandungsbrueckeGD32F303VGT6)
 	IOPinTypeDef DIO10_PWM_WL;
 	IOPinTypeDef DIO10_UART_TX;
 	IOPinTypeDef DIO11_PWM_WH;

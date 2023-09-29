@@ -72,6 +72,8 @@ uint8_t eeprom_check(SPIChannelTypeDef *SPIChannel)
 		SPIChannel->CSN = &HAL.IOs->pins->ID_CH1;
 
 	IOs.toOutput(SPIChannel->CSN);
+	// add 0929
+	IOs.setToState(SPIChannel->CSN, IOS_LOW);
 
 	SPIChannel->readWrite(0x05, false);  // Befehl "Get Status"
 	uint8_t out = SPIChannel->readWrite(0x00, true);

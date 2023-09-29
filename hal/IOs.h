@@ -49,7 +49,7 @@ typedef enum { // Give bits explicitly, because IDE relies on it.
 	} GPIOSpeed_TypeDef;
 
 	#include "hal/Landungsbruecke/freescale/PDD/GPIO_PDD.h"
-#elif defined(LandungsbrueckeV3)
+#elif defined(LandungsbrueckeV3) || defined(LandungsbrueckeGD32F303VGT6)
 //	typedef enum
 //		{
 //		GPIO_MODE_INPUT   = 0x00,  /*!< GPIO Input Mode */
@@ -111,7 +111,7 @@ typedef struct
 
 typedef struct
 {
-	#if defined(LandungsbrueckeV3)
+	#if defined(LandungsbrueckeV3) || defined(LandungsbrueckeGD32F303VGT6)
 		uint32_t				  port;
 		volatile uint32_t         *setBitRegister;
 		volatile uint32_t         *resetBitRegister;

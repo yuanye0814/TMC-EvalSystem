@@ -867,7 +867,7 @@ void TMC2130_init(void)
 	Pins.DRV_ENN_CFG6    = &HAL.IOs->pins->DIO0;
 	Pins.REFL_STEP       = &HAL.IOs->pins->DIO6;
 	Pins.REFR_DIR        = &HAL.IOs->pins->DIO7;
-#if defined(LandungsbrueckeV3)
+#if defined(LandungsbrueckeV3) || defined(LandungsbrueckeGD32F303VGT6)
 	Pins.AIN_REF_SW      = &HAL.IOs->pins->DIO10_PWM_WL;
 	Pins.AIN_REF_PWM     = &HAL.IOs->pins->DIO11_PWM_WH;
 #else
